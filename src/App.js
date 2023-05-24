@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [key,setKey] = useState(null)
+
+  useEffect(() => {
+    const getKey = () => {
+      setKey(process.env.TEST_KEY)
+    }
+    return () => {getKey()}
+  },[])
+
+  console.log(process.env)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Test commit
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div>
+      <div>hello</div>
+      <div>{key}</div>
     </div>
   );
 }
