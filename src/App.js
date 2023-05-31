@@ -1,26 +1,72 @@
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState } from 'react';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css';
 
-function App() {
+import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
+import { db } from './firebase-config';
+import { AnimatePresence } from 'framer-motion';
 
-  const [key,setKey] = useState(null)
+import UserModal from './components/UserModal/UserModal'
+import MainPage from './pages/MainPage/MainPage';
+import AdminPage from './pages/AdminPage/AdminPage';
 
-  useEffect(() => {
-    const getKey = () => {
-      setKey(process.env.TEST_KEY)
-    }
-    return () => {getKey()}
-  },[])
+export class App extends Component {
+  render() {
+      return (
+          <BrowserRouter>
+            <div>
+              <Routes>
+                <Route path="/" element={<MainPage/>} />
+                <Route path="/admin" element={<AdminPage/>} />
 
-  console.log(process.env)
 
-  return (
-
-    <div>
-      <div>hello</div>
-      <div>{key}</div>
-    </div>
-  );
+              </Routes>
+            </div>
+          </BrowserRouter>
+      )
+  }
 }
 
-export default App;
+export default App
+
+// function App() {
+
+
+//   const [users,setUsers] = useState(null)
+
+//   const [modalVisible,setModalVisible] = useState(true)
+
+//   // const handleModalClick = () => { setModalVisible(!modalVisible)}
+//   const handleModalClose = () => { setModalVisible(false)}
+
+//   useEffect(() => {
+//     const getData = async () => {
+//       const docRef = doc(db, "users", "0fzYH87kAJ9YrWhILkEk");
+//       const docSnap = await getDoc(docRef);
+//       if (docSnap.exists()) {
+//         setUsers(docSnap.data());
+//       } else {
+//         console.log("No such document!");
+//       }
+//     }
+//     return () => {getData()}
+//   },[])
+
+//   console.log(users)
+
+//   return (
+
+//     <div className='App'>
+//       <div>hello</div>
+
+//       <AnimatePresence>
+//             { modalVisible && <UserModal 
+//                 showModal={modalVisible}
+//                 handleClose={handleModalClose}
+//                 /> }
+//         </AnimatePresence>
+//     </div>
+//   );
+// }
+
+// export default App;
