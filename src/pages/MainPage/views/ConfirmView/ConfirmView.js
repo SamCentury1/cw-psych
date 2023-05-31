@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {motion} from 'framer-motion'
 // import * as FaIcons  from 'react-icons/fa'
 
@@ -6,11 +6,11 @@ import PieChart from '../../../../components/PieChart/PieChart'
 
 import "../views.css"
 import "./ConfirmView.css"
-import { Timestamp, addDoc, collection } from 'firebase/firestore'
-import { db } from '../../../../firebase-config'
+// import { Timestamp, addDoc, collection } from 'firebase/firestore'
+// import { db } from '../../../../firebase-config'
 
 
-const ConfirmView = ({state,instructions, handleGoBack, handleSubmit}) => {
+const ConfirmView = ({state,instructions, handleGoBack, saveDataToDatabase,handleSubmit}) => {
 
     const dropIn = {
         hidden: {
@@ -51,79 +51,79 @@ const ConfirmView = ({state,instructions, handleGoBack, handleSubmit}) => {
             },
         }
     }
-    console.log(state)
+
 
     const [nextPage, setNextPage] = useState(null)
 
 
-    const [surveyData,setSurveyData] = useState([])
+    // const [surveyData,setSurveyData] = useState([])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        let allAttributes = []
-        let other = []
+    //     let allAttributes = []
+    //     let other = []
 
-        state.attributes.forEach(element => {
+    //     state.attributes.forEach(element => {
 
-            const confirmValue = state.ranked_attributes.find((obj) => obj.key === element.key)
+    //         const confirmValue = state.ranked_attributes.find((obj) => obj.key === element.key)
 
-            if (element.default === true) {
-                if (confirmValue) {
-                    allAttributes.push({
-                        key:confirmValue.key,
-                        body:confirmValue.body,
-                        value:confirmValue.value,
-                    })
-                } else {
-                    allAttributes.push({
-                        key:element.key,
-                        body:element.body,
-                        value:element.value,
-                    })                    
-                }
-            } else if (element.default === false) {
-                if (confirmValue) {
-                    other.push({
-                        body:confirmValue.body,
-                        value:confirmValue.value
-                    })
-                } else {
-                    other.push({
-                        body:element.body,
-                        value:element.value
-                    })                    
-                }
-            }
+    //         if (element.default === true) {
+    //             if (confirmValue) {
+    //                 allAttributes.push({
+    //                     key:confirmValue.key,
+    //                     body:confirmValue.body,
+    //                     value:confirmValue.value,
+    //                 })
+    //             } else {
+    //                 allAttributes.push({
+    //                     key:element.key,
+    //                     body:element.body,
+    //                     value:element.value,
+    //                 })                    
+    //             }
+    //         } else if (element.default === false) {
+    //             if (confirmValue) {
+    //                 other.push({
+    //                     body:confirmValue.body,
+    //                     value:confirmValue.value
+    //                 })
+    //             } else {
+    //                 other.push({
+    //                     body:element.body,
+    //                     value:element.value
+    //                 })                    
+    //             }
+    //         }
 
-        });
+    //     });
 
-        allAttributes.push({
-            key:'Z',
-            value: other.reduce(function (acc, obj) { return acc + obj.value; }, 0),
-            data: other
-        })
+    //     allAttributes.push({
+    //         key:'Z',
+    //         value: other.reduce(function (acc, obj) { return acc + obj.value; }, 0),
+    //         data: other
+    //     })
 
 
-        const saveData = () => {
+    //     const saveData = () => {
             
-            const data = {
-                user: state.participant_id,
-                createdAt: Timestamp.now(),
-                responses:allAttributes,
-            }
+    //         const data = {
+    //             user: state.participant_id,
+    //             createdAt: Timestamp.now(),
+    //             responses:allAttributes,
+    //         }
 
-            setSurveyData(data)
-        }
-        return () => {saveData()}
+    //         setSurveyData(data)
+    //     }
+    //     return () => {saveData()}
 
-    },[state.attributes, state.participant_id, state.ranked_attributes])
+    // },[state.attributes, state.participant_id, state.ranked_attributes])
 
-    async function submitData(surveyData) {
-        console.log(surveyData)
+    // async function submitData(surveyData) {
+    //     console.log(surveyData)
 
-        await addDoc(collection(db,"responses"),surveyData)
-        await handleSubmit()
-    }
+    //     await addDoc(collection(db,"responses"),surveyData)
+    //     await handleSubmit()
+    // }
 
 
     return (
@@ -174,7 +174,7 @@ const ConfirmView = ({state,instructions, handleGoBack, handleSubmit}) => {
                             className='controls-button-next'
                             style={{y:'50%', top:'-10%'}}
                             whileHover={{backgroundColor: '#643aa7' }}
-                            onClick={() => {submitData(surveyData); setNextPage(6)}}
+                            onClick={() => {saveDataToDatabase(); setNextPage(6);handleSubmit()}}
                         >
                             Confirm
                         </motion.div>

@@ -50,7 +50,7 @@ const RankView = ({handleSubmit, instructions, state, updateAttributeRanking, ha
         updateAttributeRanking(items)
       }
 
-      console.log(state)
+    //   console.log(state)
 
       const [nextPage, setNextPage] = useState(null)
 

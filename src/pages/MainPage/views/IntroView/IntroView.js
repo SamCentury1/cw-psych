@@ -44,8 +44,6 @@ const IntroView = ({handleClose,handleSubmit, instructions,state}) => {
     const [nextPage, setNextPage] = useState(null)
 
 
-    console.log(state)
-
     return (
         // <Overlay >
 

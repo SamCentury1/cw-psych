@@ -437,6 +437,12 @@ import ConfirmView from './views/ConfirmView/ConfirmView'
 // modals 
 import AddAttributeModal from '../../components/AddAttributeModal/AddAttributeModal'
 
+//database
+import { Timestamp,collection,addDoc  } from 'firebase/firestore'
+import { db } from '../../firebase-config'
+
+
+
 export class MainPage extends Component {
     constructor (props) {
         super(props)
@@ -750,12 +756,68 @@ export class MainPage extends Component {
         
     // }
 
-    handleSubmitData = () => {
+    handleConfirm = () => {
         this.setState({
             step_5_confirmed:true,
             confirm_view_visible:false
         })
         console.log(this.state)
+    }
+
+    saveDataToDatabase = async () => {
+        let allAttributes = []
+        let other = []
+
+        this.state.attributes.forEach(element => {
+
+            const confirmValue = this.state.ranked_attributes.find((obj) => obj.key === element.key)
+
+            if (element.default === true) {
+                if (confirmValue) {
+                    allAttributes.push({
+                        key:confirmValue.key,
+                        body:confirmValue.body,
+                        value:confirmValue.value,
+                    })
+                } else {
+                    allAttributes.push({
+                        key:element.key,
+                        body:element.body,
+                        value:element.value,
+                    })                    
+                }
+            } else if (element.default === false) {
+                if (confirmValue) {
+                    other.push({
+                        body:confirmValue.body,
+                        value:confirmValue.value
+                    })
+                } else {
+                    other.push({
+                        body:element.body,
+                        value:element.value
+                    })                    
+                }
+            }
+
+        });
+
+        allAttributes.push({
+            key:'Z',
+            value: other.reduce(function (acc, obj) { return acc + obj.value; }, 0),
+            data: other
+        })
+
+        const data = {
+            user: this.state.participant_id,
+            createdAt: Timestamp.now(),
+            responses:allAttributes,
+        }
+
+        await addDoc(collection(db,"responses"),data)
+
+
+
     }
 
 
@@ -818,7 +880,8 @@ export class MainPage extends Component {
                         instructions={instructions[4]}
                         state={this.state}
                         handleGoBack={this.handleGoBack}
-                        handleSubmit={this.handleSubmitData}
+                        handleSubmit={this.handleConfirm}
+                        saveDataToDatabase={this.saveDataToDatabase}
                         /> }
                 </AnimatePresence>                  
 

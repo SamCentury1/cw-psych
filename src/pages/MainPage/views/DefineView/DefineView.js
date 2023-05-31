@@ -44,7 +44,6 @@ const DefineView = ({handleClose,handleAttributeSelection,confirmAttributeSelect
 
     const [nextPage, setNextPage] = useState(null)
 
-    console.log(state)
     return (
         // <Overlay >
 
