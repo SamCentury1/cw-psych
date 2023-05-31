@@ -1,9 +1,9 @@
 import React from 'react'
-import { useState } from "react";
+
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 // import { Item } from "./Item";
-import AttributeCard from '../AttributeCard/AttributeCard';
+
 import './Attributes.css'
 import '../AttributeCard/AttributeCard.css'
 

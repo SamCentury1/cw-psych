@@ -1,12 +1,11 @@
-import { Component, useEffect, useState } from 'react';
+import { Component } from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css';
 
-import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
-import { db } from './firebase-config';
-import { AnimatePresence } from 'framer-motion';
 
-import UserModal from './components/UserModal/UserModal'
+
+
+
 import MainPage from './pages/MainPage/MainPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 

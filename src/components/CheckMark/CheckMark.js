@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import ReactDOM from "react-dom"
+import React from "react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
 import "./CheckMark.css"
 
