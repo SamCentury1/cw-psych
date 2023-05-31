@@ -64,7 +64,6 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
     }
 
     const displayValue = (data,key) => {
-        console.log(key,maxValue(key))
         if (data.value > maxValue(key)) {
             return maxValue(key)
         } else {
@@ -82,8 +81,6 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
             },
         }
     }
-
-    console.log(state)
 
     const [nextPage, setNextPage] = useState(null)
 

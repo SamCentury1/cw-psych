@@ -122,7 +122,7 @@ const ConfirmView = ({state,instructions, handleGoBack, handleSubmit}) => {
         console.log(surveyData)
 
         await addDoc(collection(db,"responses"),surveyData)
-        handleSubmit()
+        await handleSubmit()
     }
 
 

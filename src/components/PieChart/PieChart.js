@@ -38,8 +38,6 @@ const PieChart = ({stateData,remaining,chartOptions}) => {
         return arr
     }
 
-    
-    console.log(getLabelsArray(stateData),getDataArray(stateData),getColorArray(stateData))
 
     const data = {
         labels: getLabelsArray(stateData),
