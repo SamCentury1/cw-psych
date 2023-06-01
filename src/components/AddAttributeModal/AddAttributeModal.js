@@ -43,7 +43,7 @@ const AddAttributeModal = ({handleClose, handleAddAttribute}) => {
 
             <motion.div
                 onClick={(e) => e.stopPropagation()}
-                className="modal-container"
+                className="add-attribute-modal-container"
                 variants={dropIn}
                 initial="hidden"
                 animate="visible"
@@ -57,10 +57,10 @@ const AddAttributeModal = ({handleClose, handleAddAttribute}) => {
                 >
                     <AiIcons.AiOutlineClose />
                 </motion.div>
-                <div className='modal-header-container'>
+                <div className='attribute-modal-header-container'>
                     <div className='modal-header-elem'>Add a new Attribute</div>
                 </div>
-                <div className='modal-body-container'>
+                <div className='attribute-modal-body-container'>
                     <div className='input-container'>
                         <label>Attribute</label  >
                         <input type="text" name="attribute-id" className='student-id-input' onChange={e => setAttributeText(e.target.value)}/>

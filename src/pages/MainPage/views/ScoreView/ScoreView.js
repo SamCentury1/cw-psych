@@ -52,25 +52,31 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
         return width
     }
 
-    const maxValue = (key) => {
-        let sumExceptKey = 0
-        state.confirmed_attributes.forEach(element => {
-            if (element.key !== key) {
-                sumExceptKey = sumExceptKey + element.value
-            }
-        });
+    // const maxValue = (key) => {
+    //     let sumExceptKey = 0
+    //     state.confirmed_attributes.forEach(element => {
+    //         if (element.key !== key) {
+    //             sumExceptKey = sumExceptKey + element.value
+    //         }
+    //     });
 
-        return (100 - sumExceptKey)
+    //     return (100 - sumExceptKey)
+    // }
+
+    // const displayValue = (data,key) => {
+    //     if (data.value > maxValue(key)) {
+    //         return maxValue(key)
+    //     } else {
+    //         return data.value
+    //     }
+    // }  
+
+    const displayValue = (obj) => {
+        console.log(`max value for ${obj.key} should be ${state.remaining_share + obj.value}`)
+
+        return state.remaining_share + Number(obj.value)
     }
-
-    const displayValue = (data,key) => {
-        if (data.value > maxValue(key)) {
-            return maxValue(key)
-        } else {
-            return data.value
-        }
-    }  
-
+    
 
     const chartOptions = {
         maintainAspectRatio: true,
@@ -134,11 +140,12 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
                                                 type="number" 
                                                 className='scoring-attribute-input' 
                                                 min={0}
-                                                value={displayValue(obj,obj.key)}
+                                                value={obj.value}
                                                 onChange={(e) => handleInputChange({key:obj.key,value:e.target.value})}
-                                                max={maxValue(obj.key)}
+                                                max={displayValue(obj)}
                                                 />
                                             </div>
+                                            <div>{displayValue(obj)}</div>
                                             <motion.div 
                                                 className='scoring-attribute-share'
                                                 initial={{width:0}}

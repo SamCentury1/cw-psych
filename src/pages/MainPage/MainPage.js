@@ -682,60 +682,93 @@ export class MainPage extends Component {
         this.setState((state) => {
 
             let ranked_attributes = []
-            let sum = 0
 
 
-            let sumExceptKey = 0
-            state.ranked_attributes.forEach(element => {
-                if (element.key !== e.key) {
-                    sumExceptKey = sumExceptKey + element.value
-                }
-            });
+            
 
-            const valueCalc = (value) => {
-                if (value+sum > 100) {
-                    console.log('value + sum is greater than 100')
-                    return (100 - sum)
-                } else if (value < 0) {
-                    return 0
-                } else if (100-sumExceptKey < 0) {
-                    console.log('the values of other attributes are higher that 100')
-                } else {
-                    return value
-                }
-            }
+
+            // let sumExceptKey = 0
+            // state.ranked_attributes.forEach(element => {
+            //     if (element.key !== e.key) {
+            //         sumExceptKey = sumExceptKey + element.value
+            //     }
+            // });
+
+            // const valueCalc = (value) => {
+            //     if (value+sum > 100) {
+            //         console.log('value + sum is greater than 100')
+            //         return (100 - sum)
+            //     } else if (value < 0) {
+            //         return 0
+            //     } else if (100-sumExceptKey < 0) {
+            //         console.log('the values of other attributes are higher that 100')
+            //     } else {
+            //         return value
+            //     }
+            // }
 
 
             state.ranked_attributes.forEach((attribute) => {
                 if (attribute.key === e.key) {
-                    ranked_attributes.push({
-                        key: attribute.key, 
-                        body: attribute.body, 
-                        subtext: attribute.subtext, 
-                        value: valueCalc(Number(e.value)),
-                        color: attribute.color,
-                        default: attribute.default
-                    })
-                    sum = sum+Number(e.value)
+
+                    const allAttributesExceptThisOne = state.ranked_attributes.filter((obj) => obj.key !== e.key)
+
+                    const sumOfAllOtherAttributes = this.calculateSumOfObjects(allAttributesExceptThisOne,'value')
+
+                    console.log(sumOfAllOtherAttributes)
+
+                    if (e.value < 0 ) {
+                        ranked_attributes.push({
+                            key: attribute.key, 
+                            body: attribute.body, 
+                            subtext: attribute.subtext, 
+                            value: 0,
+                            color: attribute.color,
+                            default: attribute.default,
+                        })
+                    } else if (sumOfAllOtherAttributes + Number(e.value) > 100) {
+                        const missingShare = 100 - sumOfAllOtherAttributes
+                        ranked_attributes.push({
+                            key: attribute.key, 
+                            body: attribute.body, 
+                            subtext: attribute.subtext, 
+                            value: missingShare,
+                            color: attribute.color,
+                            default: attribute.default
+                        })                        
+                    } else {
+                        ranked_attributes.push({
+                            key: attribute.key, 
+                            body: attribute.body, 
+                            subtext: attribute.subtext, 
+                            value: Number(e.value),
+                            color: attribute.color,
+                            default: attribute.default
+                        })                        
+                    }
+
                 } else {
                     ranked_attributes.push(attribute)
-                    sum = sum+Number(attribute.value)
+                    // sum = sum+Number(attribute.value)
                 }
             })
 
-            const remaining_share_calc = (sum) => {
-                if (sum > 100) {
-                    return 0
-                }  else if (100 - sum) {
-                    return 100 - sum
-                } else return 0
-            }
+            // const remaining_share_calc = (sum) => {
 
-            const remaining_share = remaining_share_calc(sum)
+                // if (sum > 100) {
+                //     return 0
+                // }  else if (100 - sum) {
+                //     return 100 - sum
+                // } else return 0
+            // }
+
+            const remaining_share = 100 - this.calculateSumOfObjects(ranked_attributes,'value')
             // const remaining_share = 100 - sum
             // setTimeout(() => {
                 
             // },2000)
+
+            console.log(this.calculateSumOfObjects(ranked_attributes,'value'), remaining_share)
 
             return {ranked_attributes, remaining_share}
 
@@ -751,6 +784,14 @@ export class MainPage extends Component {
             lastPage:4
         })
     }
+
+    calculateSumOfObjects = (object, property) => {
+        const calculate = object.reduce(function(previousVal, currentVal) {
+            return previousVal + currentVal[property]
+        }, 0)
+        return calculate
+    }
+
 
     // handleConfirmData = () => {
         
