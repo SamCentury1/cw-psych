@@ -29,6 +29,7 @@ const AdminPage = () => {
 
       return () => {getData()}
     },[])
+    console.log(data)
 
 
     const getValues = (responses,key) => {
