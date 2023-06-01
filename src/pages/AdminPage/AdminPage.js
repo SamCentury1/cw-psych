@@ -58,12 +58,9 @@ const AdminPage = () => {
       return `${date} - ${time}`
     }
 
+    if (isLoading) return <>loading</>
     return (
-      <>
-      {
-        isLoading ? (
-          <>loading</>
-        ) : (
+
           <div className='admin-container'>
             <table className='responses-table'>
               <thead>
@@ -111,10 +108,6 @@ const AdminPage = () => {
               </tbody>
             </table>
           </div>
-        )
-      }
-      </>
-
     )
 }
 
