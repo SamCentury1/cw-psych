@@ -72,7 +72,6 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
     // }  
 
     const displayValue = (obj) => {
-        console.log(`max value for ${obj.key} should be ${state.remaining_share + obj.value}`)
 
         return state.remaining_share + Number(obj.value)
     }
@@ -145,7 +144,6 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
                                                 max={displayValue(obj)}
                                                 />
                                             </div>
-                                            <div>{displayValue(obj)}</div>
                                             <motion.div 
                                                 className='scoring-attribute-share'
                                                 initial={{width:0}}

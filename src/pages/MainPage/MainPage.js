@@ -715,7 +715,6 @@ export class MainPage extends Component {
 
                     const sumOfAllOtherAttributes = this.calculateSumOfObjects(allAttributesExceptThisOne,'value')
 
-                    console.log(sumOfAllOtherAttributes)
 
                     if (e.value < 0 ) {
                         ranked_attributes.push({
@@ -768,7 +767,6 @@ export class MainPage extends Component {
                 
             // },2000)
 
-            console.log(this.calculateSumOfObjects(ranked_attributes,'value'), remaining_share)
 
             return {ranked_attributes, remaining_share}
 
