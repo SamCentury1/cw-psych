@@ -1,0 +1,17 @@
+.admin-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.responses-table {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse
+}
+
+tbody, th, td{
+    border: 1px solid black;
+}
