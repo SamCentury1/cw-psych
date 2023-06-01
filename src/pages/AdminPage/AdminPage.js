@@ -30,7 +30,7 @@ const AdminPage = () => {
         }
       }
 
-      return () => {getData()}
+      return getData()
     },[])
     console.log(data)
 
