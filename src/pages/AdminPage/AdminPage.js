@@ -22,7 +22,7 @@ const AdminPage = () => {
         snapshot.forEach(element => {
           responsesArray.push(element.data())
         });
-        setData(responsesArray)
+        await setData(responsesArray)
         await setIsLoading(false);
   
         // setData(responsesRef.data)
