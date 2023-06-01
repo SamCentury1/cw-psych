@@ -12,20 +12,22 @@ const AdminPage = () => {
     useEffect(() => {
 
       const getData = async () => {
-        const responsesRef = collection(db,'responses')
-        const snapshot = await getDocs(responsesRef) 
-        if (snapshot.empty) {
-          return
-        }
-
-        let responsesArray = [] 
-        snapshot.forEach(element => {
-          responsesArray.push(element.data())
-        });
-        await setData(responsesArray)
-        await setIsLoading(false);
+        try {
+          const responsesRef = collection(db,'responses')
+          const snapshot = await getDocs(responsesRef) 
+          if (snapshot.empty) {
+            return
+          }
   
-        // setData(responsesRef.data)
+          let responsesArray = [] 
+          snapshot.forEach(element => {
+            responsesArray.push(element.data())
+          });
+          await setData(responsesArray)
+          await setIsLoading(false);
+        } catch (error) {
+          console.log(error)
+        }
       }
 
       return () => {getData()}
