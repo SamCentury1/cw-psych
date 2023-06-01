@@ -8,9 +8,10 @@ const AdminPage = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([])
+
     useEffect(() => {
 
-      const getData = async() => {
+      const getData = async () => {
         const responsesRef = collection(db,'responses')
         const snapshot = await getDocs(responsesRef) 
         if (snapshot.empty) {
@@ -22,7 +23,7 @@ const AdminPage = () => {
           responsesArray.push(element.data())
         });
         setData(responsesArray)
-        setIsLoading(false);
+        await setIsLoading(false);
   
         // setData(responsesRef.data)
       }
