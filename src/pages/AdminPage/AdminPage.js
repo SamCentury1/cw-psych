@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase-config'
 import { collection, getDocs } from 'firebase/firestore'
 
+import { CSVLink } from "react-csv";
+
 import "./AdminPage.css"
 
 const AdminPage = () => {
@@ -58,10 +60,58 @@ const AdminPage = () => {
       return `${date} - ${time}`
     }
 
+
+
+    const downloadData = () => {
+
+      const tableHeaders = [
+        {label: "User", key: "user"},
+        {label: "Created At", key: "created_at"},
+        {label: "Question 1 (A)", key: "Q_1/A"},
+        {label: "Question 2 (B)", key: "Q_2/B"},
+        {label: "Question 3 (C)", key: "Q_3/C"},
+        {label: "Question 4 (D)", key: "Q_4/D"},
+        {label: "Question 5 (E)", key: "Q_5/E"},
+        {label: "Question 6 (F)", key: "Q_6/F"},
+        {label: "Question 7 (G)", key: "Q_7/G"},
+        {label: "Question 8 (H)", key: "Q_8/H"},
+        {label: "Question 9 (I)", key: "Q_9/I"},
+        {label: "Question 10 (J)", key: "Q_10/J"},
+        {label: "Other", key: "other"},
+        {label: "Comments", key: "comments"},
+
+      ]
+
+      const tableData = data.map((obj,index) => {
+        return {
+          "user" : obj.user,
+          "created_at": convertTime(obj.createdAt),
+          "Q_1/A" : getValues(obj.responses,'A'),
+          "Q_2/B" : getValues(obj.responses,'B'),
+          "Q_3/C" : getValues(obj.responses,'C'),
+          "Q_4/D" : getValues(obj.responses,'D'),
+          "Q_5/E" : getValues(obj.responses,'E'),
+          "Q_6/F" : getValues(obj.responses,'F'),
+          "Q_7/G" : getValues(obj.responses,'G'),
+          "Q_8/H" : getValues(obj.responses,'H'),
+          "Q_9/I" : getValues(obj.responses,'I'),
+          "Q_10/J" : getValues(obj.responses,'J'),
+          "other" : getValues(obj.responses,'Z'),
+          "comments" : getOthers(obj.responses),
+
+        }
+      })
+
+      return {"headers" : tableHeaders, "data": tableData}
+    }
+
     if (isLoading) return <>loading</>
     return (
 
           <div className='admin-container'>
+            <CSVLink data={downloadData().data} headers={downloadData().headers} filename={`results_${new Date()}`}>
+              Export to CSV
+            </CSVLink>
             <table className='responses-table'>
               <thead>
                 <tr>
