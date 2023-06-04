@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase-config'
 import { collection, getDocs } from 'firebase/firestore'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { CSVLink } from "react-csv";
 
