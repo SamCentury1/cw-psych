@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase-config'
 import { collection, getDocs } from 'firebase/firestore'
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { CSVLink } from "react-csv";
 
 import "./AdminPage.css"
+import { Navigate } from 'react-router-dom';
+import { UserAuth } from '../../context/AuthContext';
+
+import {motion} from 'framer-motion'
+
+import * as FaIcons from 'react-icons/fa'
+
+import defaultAttributes from '../../utilities/defaultAttributes';
 
 const AdminPage = () => {
+
+    const {user} = UserAuth()
 
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([])
@@ -25,7 +36,11 @@ const AdminPage = () => {
           snapshot.forEach(element => {
             responsesArray.push(element.data())
           });
-          await setData(responsesArray)
+
+          let sortedArray = responsesArray.sort(function(a,b) {
+            return a.createdAt - b.createdAt
+          })
+          await setData(sortedArray)
           await setIsLoading(false);
         } catch (error) {
           console.log(error)
@@ -48,7 +63,7 @@ const AdminPage = () => {
         return ''
       } else {
         const textValue = others.data.map((object) => {
-          return `${object.body}: ${object.value} - `
+          return `${object.body}: ${object.value} / `
         })
         return textValue
       }
@@ -105,13 +120,64 @@ const AdminPage = () => {
       return {"headers" : tableHeaders, "data": tableData}
     }
 
+    console.log(user)
+
     if (isLoading) return <>loading</>
+
+    if (!user) {
+      return <Navigate to="/signin" replace/>
+    }
     return (
 
           <div className='admin-container'>
-            <CSVLink data={downloadData().data} headers={downloadData().headers} filename={`results_${new Date()}`}>
-              Export to CSV
-            </CSVLink>
+            <div className='navbar'>
+              <motion.div whileHover={{scale:1.1}}>
+                <NavLink className="logout-btn" to="/logout">logout</NavLink>
+              </motion.div>
+            </div>
+
+            <div className='separator'></div>
+
+            <div className='admin-header'>
+              <div className='admin-header-text'>Attributes</div>
+            </div>
+
+            <div className='admin-questions'>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Index</th>
+                    <th>Attribute</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    defaultAttributes.map((obj,index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{index+1}/{obj.key}</td>
+                          <td>{obj.body}</td>
+                          <td>{obj.subtext}</td>
+                        </tr>
+                      )
+
+                    })
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div className='admin-header'>
+              <div className='admin-header-text'>Tabular Data</div>
+              <motion.div whileHover={{scale:1.1}}>
+                <CSVLink data={downloadData().data} headers={downloadData().headers} filename={`results_${new Date()}`} className='export-to-csv-btn'>
+                  <div className='export-to-csv-icon'><FaIcons.FaFileCsv/></div>
+                  <div className='export-to-csv-text'>Export to CSV</div>
+                </CSVLink>
+              </motion.div>
+            </div>
+
             <table className='responses-table'>
               <thead>
                 <tr>

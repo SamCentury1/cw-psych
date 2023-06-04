@@ -1,5 +1,10 @@
 import { Component } from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import SignInPage from './pages/AuthPages/SignInPage/SignInPage';
+import SignUpPage from './pages/AuthPages/SignUpPage/SignUpPage'
+import Logout from './functions/Logout.js'
+
+
 import './App.css';
 
 
@@ -17,6 +22,9 @@ export class App extends Component {
               <Routes>
                 <Route path="/" element={<MainPage/>} />
                 <Route path="/admin" element={<AdminPage/>} />
+                <Route path="/signin" element={<SignInPage/>} />
+                <Route path="/signup" element={<SignUpPage/>} />
+                <Route path="/logout" element={<Logout/>} />
 
 
               </Routes>
