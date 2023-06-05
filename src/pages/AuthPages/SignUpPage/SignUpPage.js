@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import {setDoc,doc} from 'firebase/firestore'
 import { auth,db } from '../../../firebase-config'
-import {motion} from 'framer-motion'
 // import addImage from "../../images/addImage.png"
 
 // import "./SignUpPage.css"
