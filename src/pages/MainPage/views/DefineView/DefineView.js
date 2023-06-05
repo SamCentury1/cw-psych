@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {motion} from 'framer-motion'
 // import * as FaIcons  from 'react-icons/fa'
 import SelectAttributeCard from '../../../../components/SelectAttributeCard/SelectAttributeCard'
+import ProgressBar from '../../../../components/ProgressBar/ProgressBar'
 import * as HiIcons from 'react-icons/hi'
 
 import "../views.css"
@@ -97,13 +98,8 @@ const DefineView = ({handleClose,handleAttributeSelection,confirmAttributeSelect
                             Back
                         </motion.div>
 
-                        <div className='progress-container'>
-                            <div className='progress-item' style={state.step_1_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>1</div>
-                            <div className='progress-item' style={state.step_2_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161)'} : {backgroundColor:'#ffffff'}}>2</div>
-                            <div className='progress-item' style={state.step_3_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>3</div>
-                            <div className='progress-item' style={state.step_4_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>4</div>
-                            <div className='progress-item' style={state.step_5_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>5</div>
-                        </div>
+                        <ProgressBar state={state} />
+
 
                         <motion.div 
                             className='controls-button-next'

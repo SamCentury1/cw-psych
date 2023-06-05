@@ -36,6 +36,7 @@
     position: relative;
     border-radius: 5px;
     box-shadow: 2px 10px 10px rgba(32, 32, 32, 0.6);
+    cursor: grab;
 }
 
 .rank-attribute-key {

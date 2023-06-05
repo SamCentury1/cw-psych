@@ -5,7 +5,7 @@
     height: 100%;
     width: 40%;
 
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .scoring-attribute-card {

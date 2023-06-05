@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {motion} from 'framer-motion'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import ProgressBar from '../../../../components/ProgressBar/ProgressBar';
 import "../views.css"
 import "./RankView.css"
 
@@ -113,14 +114,7 @@ const RankView = ({handleSubmit, instructions, state, updateAttributeRanking, ha
                             Back
                         </motion.div>
 
-                        <div className='progress-container'>
-                            <div className='progress-item' style={state.step_1_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>1</div>
-                            <div className='progress-item' style={state.step_2_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>2</div>
-                            <div className='progress-item' style={state.step_3_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>3</div>
-                            <div className='progress-item' style={state.step_4_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>4</div>
-                            <div className='progress-item' style={state.step_5_confirmed === true ? {backgroundColor: 'rgb(161, 41, 161) '} : {backgroundColor:'#ffffff'}}>5</div>
-                        </div>
-
+                        <ProgressBar state={state} />
                         <motion.div 
                             className='controls-button-next'
                             style={{y:'50%', top:'-10%'}}

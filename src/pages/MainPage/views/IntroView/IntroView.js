@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {motion} from 'framer-motion'
+import ProgressBar from '../../../../components/ProgressBar/ProgressBar'
 // import * as FaIcons  from 'react-icons/fa'
 
 import "../views.css"
+import "./IntroView.css"
 
 const IntroView = ({handleClose,handleSubmit, instructions,state}) => {
 
@@ -67,19 +69,9 @@ const IntroView = ({handleClose,handleSubmit, instructions,state}) => {
                         </div>
                     </div>
                     <div className='modal-body-container'>
-                        <div className='input-container'>
-                            <input type="text" name="student-id" className='student-id-input' onChange={e => setParticipantId(e.target.value)}/>
-                        </div>
-                        <div className='submit-id-button-container'>
-                            {/* <div className='submit-id-button'>SUBMIT</div> */}
-                            {/* <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                className='submit-id-button'
-                                onClick={() => handleSubmit(participantId)}
-                                >
-                                SUBMIT
-                            </motion.button> */}
+                        <div className='intro-input-label'>Enter your Qualtrix ID</div>
+                        <div className='intro-input-container'>
+                            <input type="text" name="student-id" className='intro-input' onChange={e => setParticipantId(e.target.value)}/>
                         </div>
                     </div>
 
@@ -92,13 +84,7 @@ const IntroView = ({handleClose,handleSubmit, instructions,state}) => {
                             Back
                         </motion.div>
 
-                        <div className='progress-container'>
-                            <div className='progress-item' style={state.step_1_confirmed === true ? {backgroundColor: '#643aa7 '} : {backgroundColor:'#ffffff'}}>1</div>
-                            <div className='progress-item' style={state.step_2_confirmed === true ? {backgroundColor: '#643aa7 '} : {backgroundColor:'#ffffff'}}>2</div>
-                            <div className='progress-item' style={state.step_3_confirmed === true ? {backgroundColor: '#643aa7 '} : {backgroundColor:'#ffffff'}}>3</div>
-                            <div className='progress-item' style={state.step_4_confirmed === true ? {backgroundColor: '#643aa7 '} : {backgroundColor:'#ffffff'}}>4</div>
-                            <div className='progress-item' style={state.step_5_confirmed === true ? {backgroundColor: '#643aa7 '} : {backgroundColor:'#ffffff'}}>5</div>
-                        </div>
+                        <ProgressBar state={state} />
 
                         <motion.div 
                             className='controls-button-next'

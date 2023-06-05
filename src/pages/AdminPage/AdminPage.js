@@ -131,98 +131,104 @@ const AdminPage = () => {
 
           <div className='admin-container'>
             <div className='navbar'>
-              <motion.div whileHover={{scale:1.1}}>
-                <NavLink className="logout-btn" to="/logout">logout</NavLink>
-              </motion.div>
+              <div className='navbar-inside'>
+
+                <motion.div whileHover={{scale:1.1}}>
+                  <NavLink className="logout-btn" to="/logout">logout</NavLink>
+                </motion.div>
+              </div>
             </div>
 
             <div className='separator'></div>
 
-            <div className='admin-header'>
-              <div className='admin-header-text'>Attributes</div>
-            </div>
 
-            <div className='admin-questions'>
-              <table>
+          <div className='admin-body'>
+              <div className='admin-header'>
+                <div className='admin-header-text'>Attributes</div>
+              </div>
+
+              <div className='admin-questions'>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Index</th>
+                      <th>Attribute</th>
+                      <th>Example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      defaultAttributes.map((obj,index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{index+1}/{obj.key}</td>
+                            <td>{obj.body}</td>
+                            <td>{obj.subtext}</td>
+                          </tr>
+                        )
+
+                      })
+                    }
+                  </tbody>
+                </table>
+              </div>
+
+              <div className='admin-header'>
+                <div className='admin-header-text'>Tabular Data</div>
+                <motion.div whileHover={{scale:1.1}}>
+                  <CSVLink data={downloadData().data} headers={downloadData().headers} filename={`results_${new Date()}`} className='export-to-csv-btn'>
+                    <div className='export-to-csv-icon'><FaIcons.FaFileCsv/></div>
+                    <div className='export-to-csv-text'>Export to CSV</div>
+                  </CSVLink>
+                </motion.div>
+              </div>
+
+              <table className='responses-table'>
                 <thead>
                   <tr>
-                    <th>Index</th>
-                    <th>Attribute</th>
-                    <th>Example</th>
+                    <th>User</th>
+                    <th>Created At</th>
+                    <th>Q 1/A</th>
+                    <th>Q 2/B</th>
+                    <th>Q 3/C</th>
+                    <th>Q 4/D</th>
+                    <th>Q 5/E</th>
+                    <th>Q 6/F</th>
+                    <th>Q 7/G</th>
+                    <th>Q 8/H</th>
+                    <th>Q 9/I</th>
+                    <th>Q 10/J</th>
+                    <th>OTHER</th>
+                    <th>Comments</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
-                    defaultAttributes.map((obj,index) => {
+                    data.map((obj, index) => {
                       return (
                         <tr key={index}>
-                          <td>{index+1}/{obj.key}</td>
-                          <td>{obj.body}</td>
-                          <td>{obj.subtext}</td>
+                          <td>{obj.user}</td>
+                          <td>{convertTime(obj.createdAt)}</td>
+                          <td>{getValues(obj.responses,'A')}</td>
+                          <td>{getValues(obj.responses,'B')}</td>
+                          <td>{getValues(obj.responses,'C')}</td>
+                          <td>{getValues(obj.responses,'D')}</td>
+                          <td>{getValues(obj.responses,'E')}</td>
+                          <td>{getValues(obj.responses,'F')}</td>
+                          <td>{getValues(obj.responses,'G')}</td>
+                          <td>{getValues(obj.responses,'H')}</td>
+                          <td>{getValues(obj.responses,'I')}</td>
+                          <td>{getValues(obj.responses,'J')}</td>
+                          <td>{getValues(obj.responses,'Z')}</td>
+                          <td>{getOthers(obj.responses)}</td>
                         </tr>
                       )
-
                     })
+        
                   }
                 </tbody>
               </table>
             </div>
-
-            <div className='admin-header'>
-              <div className='admin-header-text'>Tabular Data</div>
-              <motion.div whileHover={{scale:1.1}}>
-                <CSVLink data={downloadData().data} headers={downloadData().headers} filename={`results_${new Date()}`} className='export-to-csv-btn'>
-                  <div className='export-to-csv-icon'><FaIcons.FaFileCsv/></div>
-                  <div className='export-to-csv-text'>Export to CSV</div>
-                </CSVLink>
-              </motion.div>
-            </div>
-
-            <table className='responses-table'>
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Created At</th>
-                  <th>Q 1/A</th>
-                  <th>Q 2/B</th>
-                  <th>Q 3/C</th>
-                  <th>Q 4/D</th>
-                  <th>Q 5/E</th>
-                  <th>Q 6/F</th>
-                  <th>Q 7/G</th>
-                  <th>Q 8/H</th>
-                  <th>Q 9/I</th>
-                  <th>Q 10/J</th>
-                  <th>OTHER</th>
-                  <th>Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  data.map((obj, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{obj.user}</td>
-                        <td>{convertTime(obj.createdAt)}</td>
-                        <td>{getValues(obj.responses,'A')}</td>
-                        <td>{getValues(obj.responses,'B')}</td>
-                        <td>{getValues(obj.responses,'C')}</td>
-                        <td>{getValues(obj.responses,'D')}</td>
-                        <td>{getValues(obj.responses,'E')}</td>
-                        <td>{getValues(obj.responses,'F')}</td>
-                        <td>{getValues(obj.responses,'G')}</td>
-                        <td>{getValues(obj.responses,'H')}</td>
-                        <td>{getValues(obj.responses,'I')}</td>
-                        <td>{getValues(obj.responses,'J')}</td>
-                        <td>{getValues(obj.responses,'Z')}</td>
-                        <td>{getOthers(obj.responses)}</td>
-                      </tr>
-                    )
-                  })
-      
-                }
-              </tbody>
-            </table>
           </div>
     )
 }

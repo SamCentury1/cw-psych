@@ -11,10 +11,19 @@
 
 }
 
+.admin-body {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
 
 .admin-header {
     display: flex;
-    width: 90%;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
 }
@@ -24,10 +33,19 @@
     margin: 22px 5px;
 }
 
+.admin-questions {
+    width: 100%;
+}
+
 .responses-table {
+    width: 100%;
     text-align: center;
     border: 1px solid black;
     border-collapse: collapse
+}
+
+table {
+    width:100%;
 }
 
 tbody, th, td{
@@ -40,10 +58,18 @@ tbody, th, td{
     height: 40px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     background-color: purple;
 
+}
+
+.navbar-inside {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .logout-btn {
