@@ -84,7 +84,7 @@ const SignUpPage = () => {
 
 
                     <div className='form-body-controls'>
-                        <motion.div className='form-controls-button' whileHover={{scale:1.1}}>Register</motion.div>    
+                        <motion.button className='form-controls-button' whileHover={{scale:1.1}}>Register</motion.button>    
                     </div>      
                 </div>
             </form>
