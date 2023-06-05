@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import {setDoc,doc} from 'firebase/firestore'
 import { auth,db } from '../../../firebase-config'
+import {motion} from 'framer-motion'
 // import addImage from "../../images/addImage.png"
 
 // import "./SignUpPage.css"
@@ -82,9 +83,9 @@ const SignUpPage = () => {
                     </div>
 
 
-                    <div className='form-body-controls'>
-                        <button className='form-controls-button' whileHover={{scale:1.1}}>Register</button>    
-                    </div>      
+                    <motion.div className='form-body-controls' whileHover={{scale:1.1}}>
+                        <button className='form-controls-button' >Register</button>    
+                    </motion.div>      
                 </div>
             </form>
         </div>
