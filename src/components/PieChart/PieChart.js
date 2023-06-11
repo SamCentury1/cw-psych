@@ -31,7 +31,7 @@ const PieChart = ({stateData,remaining,chartOptions}) => {
     }
 
     const getColorArray = (stateData) => {
-        let arr = ['#FFFFFF']
+        let arr = ['rgba(0,0,0,0)']
         stateData.forEach(element => {
             arr.push(element.color)
         });

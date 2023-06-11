@@ -4,7 +4,6 @@ import * as AiIcons from 'react-icons/ai'
 
 const ProgressBar = ({state}) => {
 
-    console.log(state)
 
     const displayContent = (pageActive,stepComplete,index) => {
 

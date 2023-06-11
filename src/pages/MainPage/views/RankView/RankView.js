@@ -89,7 +89,10 @@ const RankView = ({handleSubmit, instructions, state, updateAttributeRanking, ha
                                     {(provided) => (
                                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='rank-attribute-card'>
                                                 <div className='rank-attribute-key'>{index+1}</div>
-                                                <div className='rank-attribute-body'>{data.body}</div>
+                                                <div className='rank-attribute-body'>
+                                                    <div className='rank-attribute-body-attribute'>{data.body}</div>
+                                                    <div className='rank-attribute-body-example'>{data.subtext}</div>
+                                                </div>
 
                                         </div>
                                     )}

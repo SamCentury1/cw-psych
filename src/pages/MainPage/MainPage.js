@@ -436,6 +436,7 @@ import ConfirmView from './views/ConfirmView/ConfirmView'
 
 // modals 
 import AddAttributeModal from '../../components/AddAttributeModal/AddAttributeModal'
+import ErrorModal from '../../components/ErrorModal/ErrorModal'
 
 //database
 import { Timestamp,collection,addDoc  } from 'firebase/firestore'
@@ -473,17 +474,31 @@ export class MainPage extends Component {
 
             remaining_share: 100,
             lastPage:1,
+
+            errorVisible: false,
+            errorMessage: null
         }
     }
 
     handleAttributeModalClose = async (elem) => {
-    
-            this.setState({
-                // modalVisible:false,
-                add_attribute_modal_visible:false,
-                // confirm_chart_modal_visible:false,
-            })
+        this.setState({
+            // modalVisible:false,
+            add_attribute_modal_visible:false,
+            // confirm_chart_modal_visible:false,
+        })
+    }
 
+    handleErrorOpen = () => {
+        this.setState({
+            errorVisible: true
+        })
+    }
+
+    handleErrorClose = () => {
+        this.setState({
+            errorVisible: false,
+            errorMessage: null
+        })
     }
 
     handleGoBack = (page) => {
@@ -532,13 +547,20 @@ export class MainPage extends Component {
     }
 
     handleParticipantSubmit = (elem) => {
-        this.setState({
-            participant_id: elem,
-            step_1_confirmed: true,
-            intro_view_visible: false,
-            define_view_visible: true,
-            lastPage:1
-        })
+        if (elem === '' || elem === null) {
+            this.setState({
+                errorVisible:true,
+                errorMessage:"Please enter a valid ID"
+            })
+        } else {
+            this.setState({
+                participant_id: elem,
+                step_1_confirmed: true,
+                intro_view_visible: false,
+                define_view_visible: true,
+                lastPage:1
+            })
+        }
     }
 
     // selecting an attribute
@@ -591,31 +613,37 @@ export class MainPage extends Component {
 
     handleAddAttribute = (elem) => {
 
-        this.setState((state) => {
-            // if (elem.attribute !== '') {
-                const newAttributeShell = colorDictionary[this.state.attributes.length]
-                const newAttribute = {
-                    key: newAttributeShell.key, 
-                    body: elem.attribute, 
-                    subtext: elem.example, 
-                    value: 0, 
-                    default: false, 
-                    selected:true, 
-                    removed:false                
-                }
-                // let attributes = state.attributes
-                // attributes.push(newAttribute)
-
-                const attributes = state.attributes.map((attribute) => {
-                    return attribute
-                })
-
-                attributes.push(newAttribute)
-
-                const add_attribute_modal_visible = false
-                return {attributes,add_attribute_modal_visible }
-            // }
-        })  
+        if (elem.attribute === null) {
+            this.setState({
+                add_attribute_modal_visible:false
+            })
+        } else {
+            this.setState((state) => {
+                // if (elem.attribute !== '') {
+                    const newAttributeShell = colorDictionary[this.state.attributes.length]
+                    const newAttribute = {
+                        key: newAttributeShell.key, 
+                        body: elem.attribute, 
+                        subtext: elem.example, 
+                        value: 0, 
+                        default: false, 
+                        selected:true, 
+                        removed:false                
+                    }
+                    // let attributes = state.attributes
+                    // attributes.push(newAttribute)
+    
+                    const attributes = state.attributes.map((attribute) => {
+                        return attribute
+                    })
+    
+                    attributes.push(newAttribute)
+    
+                    const add_attribute_modal_visible = false
+                    return {attributes,add_attribute_modal_visible }
+                // }
+            })  
+        }
 
     }
 
@@ -630,6 +658,11 @@ export class MainPage extends Component {
                 const rank_view_visible = true
                 const lastPage = 2
                 return {step_2_confirmed, confirmed_attributes, define_view_visible, rank_view_visible, lastPage}
+            })
+        } else {
+            this.setState({
+                errorVisible:true,
+                errorMessage: "Please make sure all attributes have a selection"
             })
         }
     }
@@ -665,8 +698,9 @@ export class MainPage extends Component {
                 }
                 
             })
+            const remaining_share = 100
 
-            return {rank_view_visible,score_view_visible,step_3_confirmed, ranked_attributes,lastPage}
+            return {rank_view_visible,score_view_visible,step_3_confirmed, ranked_attributes,lastPage, remaining_share}
         })
         // this.setState({
         //     rank_view_visible:false, // 3
@@ -682,31 +716,6 @@ export class MainPage extends Component {
         this.setState((state) => {
 
             let ranked_attributes = []
-
-
-            
-
-
-            // let sumExceptKey = 0
-            // state.ranked_attributes.forEach(element => {
-            //     if (element.key !== e.key) {
-            //         sumExceptKey = sumExceptKey + element.value
-            //     }
-            // });
-
-            // const valueCalc = (value) => {
-            //     if (value+sum > 100) {
-            //         console.log('value + sum is greater than 100')
-            //         return (100 - sum)
-            //     } else if (value < 0) {
-            //         return 0
-            //     } else if (100-sumExceptKey < 0) {
-            //         console.log('the values of other attributes are higher that 100')
-            //     } else {
-            //         return value
-            //     }
-            // }
-
 
             state.ranked_attributes.forEach((attribute) => {
                 if (attribute.key === e.key) {
@@ -752,14 +761,6 @@ export class MainPage extends Component {
                 }
             })
 
-            // const remaining_share_calc = (sum) => {
-
-                // if (sum > 100) {
-                //     return 0
-                // }  else if (100 - sum) {
-                //     return 100 - sum
-                // } else return 0
-            // }
 
             const remaining_share = 100 - this.calculateSumOfObjects(ranked_attributes,'value')
             // const remaining_share = 100 - sum
@@ -775,12 +776,23 @@ export class MainPage extends Component {
     
 
     handleScoreAttributes = () => {
-        this.setState({
-            score_view_visible:false, // 4
-            confirm_view_visible:true, // 5
-            step_4_confirmed: true,
-            lastPage:4
-        })
+
+        const remaining_share = 100 - this.calculateSumOfObjects(this.state.ranked_attributes,'value')
+
+        if (remaining_share > 0) {
+            this.setState({
+                errorVisible:true,
+                errorMessage: "Your chart doesn't add up to 100%. Please make sure all attributes add up to 100%"
+            })
+        } else {
+            this.setState({
+                score_view_visible:false, // 4
+                confirm_view_visible:true, // 5
+                step_4_confirmed: true,
+                lastPage:4
+            })
+        }
+
     }
 
     calculateSumOfObjects = (object, property) => {
@@ -939,7 +951,18 @@ export class MainPage extends Component {
                                 handleClose={this.handleAttributeModalClose}
                                 handleAddAttribute={this.handleAddAttribute}
                                 /> }
-                </AnimatePresence>   
+                </AnimatePresence>
+
+                <AnimatePresence>
+                    {
+                        this.state.errorVisible && <ErrorModal 
+                            showModal={this.state.errorVisible}
+                            errorMessage={this.state.errorMessage}
+                            handleClose={this.handleErrorClose}
+                        />
+                    }
+                </AnimatePresence>  
+                
                 <AnimatePresence>
                             { 
                             this.state.step_1_confirmed &&

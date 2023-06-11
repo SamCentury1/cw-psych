@@ -47,9 +47,11 @@ const ConfirmView = ({state,instructions, handleGoBack, saveDataToDatabase,handl
         maintainAspectRatio: true,
         aspectRatio: 2,
         // responsive:true,
+        borderWidth: 0,
         plugins: {
             legend: {
                 position:'left',
+              
             },
         }
     }

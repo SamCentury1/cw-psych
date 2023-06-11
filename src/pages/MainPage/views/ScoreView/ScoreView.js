@@ -91,6 +91,7 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
 
     const [nextPage, setNextPage] = useState(null)
 
+    console.log(state)
 
     return (
         // <Overlay >

@@ -69,20 +69,20 @@ const IntroView = ({handleClose,handleSubmit, instructions,state}) => {
                         </div>
                     </div>
                     <div className='modal-body-container'>
-                        <div className='intro-input-label'>Enter your Qualtrix ID</div>
+                        <div className='intro-input-label'>Enter your Qualtrics ID</div>
                         <div className='intro-input-container'>
                             <input type="text" name="student-id" className='intro-input' onChange={e => setParticipantId(e.target.value)}/>
                         </div>
                     </div>
 
                     <div className='modal-controls-layer'>
-                        <motion.div 
+                        {/* <motion.div 
                             className='controls-button-back'
                             style={{y:'50%', top:'-10%'}}
                             whileHover={{backgroundColor: '#ffffff' }}
                         >
                             Back
-                        </motion.div>
+                        </motion.div> */}
 
                         <ProgressBar state={state} />
 

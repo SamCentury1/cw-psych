@@ -2,14 +2,14 @@ const instructions = [
     {
         step: "1",
         title: "Introduction",
-        body: "This part of the questionnaire will be completed in this 5-step wizard. Please start by entering your participant ID from the Qualtrix questionnaire",
+        body: "This part of the questionnaire will be completed in this 5-step wizard. Please start by entering your participant ID from the Qualtrics questionnaire",
         completed: false
     },
 
     {
         step: "2",
         title: "Selecting Attributes",
-        body: " Please read through the list below and PLACE AN 'X' on the line next to each attribute that is Important to how you have felt about yourself in the last four weeks",
+        body: " Please read through the list below and use the CHECKMARK on the left next to each attribute that is important to how you have felt about yourself in the last four weeks",
         completed: false
     },    
 
@@ -23,7 +23,7 @@ const instructions = [
     {
         step: "4",
         title: "Scoring Attributes",
-        body: "Using the attributes you selected, DIVIDE THE CIRCLE below so that the size of each section is a reflection of how much your opinion of yourself in the last four weeks has been based on that attribute (larger pieces should indicate that a greater part of your opinion of yourself has been based on that attribute, for example). Place the letters corresponding to the attributes inside the pieces of the circle.",
+        body: "Using the attributes you selected, DIVIDE THE CIRCLE below so that the size of each section is a reflection of how much your opinion of yourself in the last four weeks has been based on that attribute (larger pieces should indicate that a greater part of your opinion of yourself has been based on that attribute, for example) - Use the numbers on your keypad or the arrows provided to increase or decrease the numbers.",
         completed: false
     },
 
