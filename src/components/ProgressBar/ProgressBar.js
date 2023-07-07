@@ -7,9 +7,9 @@ const ProgressBar = ({state}) => {
 
     const displayContent = (pageActive,stepComplete,index) => {
 
-        const incomplete = pageActive === true ? {backgroundColor : 'rgb(180, 69, 184)'} : {backgroundColor:'#ffffff', color: 'rgb(180, 69, 184)'}
+        const incomplete = pageActive === true ? {backgroundColor : 'rgb(188,77,89)'} : {backgroundColor:'#ffffff', color: 'rgb(188,77,89)'}
 
-        const activeComplete = pageActive === true ? {backgroundColor : 'rgb(180, 69, 184)'} : {backgroundColor: 'rgb(161, 41, 161)'}
+        const activeComplete = pageActive === true ? {backgroundColor : 'rgb(188,77,89)'} : {backgroundColor: 'rgb(188,77,89)'}
 
         if (stepComplete === true) {
             return (

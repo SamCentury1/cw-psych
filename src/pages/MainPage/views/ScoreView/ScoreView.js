@@ -189,7 +189,7 @@ const ScoreView = ({instructions,state,handleInputChange,handleScoreAttributes, 
                         <motion.div 
                             className='controls-button-next'
                             style={{y:'50%', top:'-10%'}}
-                            whileHover={{backgroundColor: '#643aa7' }}
+                            whileHover={{backgroundColor: '#a51d2e' }}
                             onClick={() => {handleScoreAttributes(); setNextPage(5)}}
                         >
                             Confirm
